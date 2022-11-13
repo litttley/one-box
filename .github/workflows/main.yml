@@ -38,3 +38,4 @@ jobs:
         releaseDraft: true
         prerelease: false
         configPath: tauri.conf.json5
+        tauriScript : yarn tauri build
