@@ -7,7 +7,8 @@ async function greet(url,label,title) {
   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
   // greetMsgEl.textContent = await invoke("greet", { name: greetInputEl.value });
 
-  await invoke("greet",{appConfig:  { url: url,label:label,base_path: basePath,title:title }} );
+ const s =  await invoke("greet",{appConfig:  { url: url,label:label,base_path: basePath,title:title }} );
+ 
 }
 
 window.addEventListener("DOMContentLoaded", () => {
