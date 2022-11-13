@@ -1841,6 +1841,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
 
 [[package]]
+name = "one-box"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "image",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "thiserror",
+ "url",
+]
+
+[[package]]
 name = "open"
 version = "3.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2837,21 +2852,6 @@ checksum = "02e2d2db9033d13a1567121ddd7a095ee144db4e1ca1b1bda3419bc0da294ebd"
 dependencies = [
  "libc",
  "winapi",
-]
-
-[[package]]
-name = "souna"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "image",
- "reqwest",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "thiserror",
- "url",
 ]
 
 [[package]]
