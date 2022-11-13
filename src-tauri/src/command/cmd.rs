@@ -26,23 +26,23 @@ pub async fn greet(
         title,
     } = app_config;
     println!("{base_path}");
-  let icon =   load_icon_by_url(format!("{}/assets/app-icon/{}.png",base_path,label)).await?;
-  let script =   load_script_by_url(format!("{}/assets/app-js/{}.js",base_path,label)).await?;
-    // let icon_path = handle
-    //     .path_resolver()
-    //     .resolve_resource(format!("../src/assets/icons/{}.png", label))
-    //     .unwrap();
+//   let icon =   load_icon_by_url(format!("/assets/app-icon/{}.png",label)).await?;
+//   let script =   load_script_by_url(format!("{}/assets/app-js/{}.js",base_path,label)).await?;
+    let icon_path = handle
+        .path_resolver()
+        .resolve_resource(format!("assets/icons/{}.png", label))
+        .unwrap();
 
-    // let script_path = handle
-    //     .path_resolver()
-    //     .resolve_resource(format!("assets/js/{}.js", label))
-    //     .unwrap();
+    let script_path = handle
+        .path_resolver()
+        .resolve_resource(format!("assets/js/{}.js", label))
+        .unwrap();
 
-    //    let s =  handle.asset_resolver().get("/assets/javascript.svg".to_string()).unwrap().mime_type;
+    //    let s =  handle.asset_resolver().get("/index.html".to_string()).unwrap().mime_type;
     //    println!("{:#?}",s);
 
-    // let icon = load_icon(icon_path.as_path())?;
-    // let script = load_script(script_path.as_path())?;
+    let icon = load_icon(icon_path.as_path())?;
+    let script = load_script(script_path.as_path())?;
     let docs_window = tauri::WindowBuilder::new(
         &handle,
         &label, /* the unique window label */
