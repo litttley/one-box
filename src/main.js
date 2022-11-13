@@ -20,4 +20,13 @@ window.addEventListener("DOMContentLoaded", () => {
     document
     .querySelector("#zlibary")
     .addEventListener("click", () => greet("https://node1.v4.zhelper.net/","zlibary","zlibary"));
+
+    document
+    .querySelector("#png-converter")
+    .addEventListener("click", () => greet("https://cloudconvert.com/","png-converter","png-converter"));
+
+    
+    document
+    .querySelector("#typepad")
+    .addEventListener("click", () => greet("https://kylebing.cn/tools/typepad/","typepad","typepad"));
 });
