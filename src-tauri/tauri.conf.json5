@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "souna",
+    "productName": "one-box",
     "version": "0.0.0"
   },
   "tauri": {
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "百宝箱",
+        "title": "One Box",
         "width": 800
       }
       

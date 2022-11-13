@@ -18,6 +18,12 @@
   display: none;
 }
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   margin: 0;
   padding-top: 10vh;
@@ -28,7 +34,7 @@
 }
 
 .logo {
-  height: 6em;
+  height: 10em;
   padding: 1.5em;
   will-change: filter;
   transition: 0.75s;
@@ -56,6 +62,14 @@ a:hover {
 
 h1 {
   text-align: center;
+  color: #7515a4;
+  font-size: 2rem;
+  font-family: Gabriola;
+}
+
+.logo-text{
+  color: #7515a4;
+  font-size: 1rem;
 }
 
 input,
