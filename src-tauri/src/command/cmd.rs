@@ -61,7 +61,7 @@ pub async fn greet(
     // }
 
     let Some(win)=window else{
-        println!("1111");
+      
         let docs_window = tauri::WindowBuilder::new(
             &handle,
             &label, /* the unique window label */
@@ -81,15 +81,12 @@ pub async fn greet(
        
         return    Ok(script)
     };
-    println!("2222");
+ 
    let s =  win.maximize();
  
    println!("{:#?}",s);
     return Ok(script)
-//    if Some(t)=window else{
-
-//    }
-    
+ 
 
 }
 
