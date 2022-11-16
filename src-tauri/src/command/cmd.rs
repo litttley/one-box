@@ -1,31 +1,25 @@
-use std::{
-    collections::HashMap,
-    fmt::format,
-    fs::File,
-    io::{BufReader, Read},
-    path::Path,
-};
+use std::{fs::File, io::Read, path::Path};
 
 use image::ImageFormat;
 use tauri::{AppHandle, Icon, Manager};
 use url::Url;
 
-use crate::{errors::custome_error::CustomeErrors, modal::modal::AppConfig};
+use crate::{errors::custome_error::CustomeErrors, modals::modal::AppConfig};
 
 //"https://www.kelongwo.com/Resource_function/pan/baidu/".parse().unwrap()
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-pub async fn greet(
+pub async fn open_app(
     app_config: AppConfig,
     handle: tauri::AppHandle,
-) -> Result<String, CustomeErrors> {
+) -> Result<(), CustomeErrors> {
     let AppConfig {
         url,
         label,
         base_path,
         title,
     } = app_config;
- 
+
     //开发环境使用dev server加载
     #[cfg(debug_assertions)]
     let icon = load_icon_by_url(format!("{}/assets/app-icon/{}.png", base_path, label)).await?;
@@ -55,14 +49,13 @@ pub async fn greet(
 
     // let icon = load_icon(icon_path.as_path())?;
     // let script = load_script(script_path.as_path())?;
-   let window =  handle.app_handle().get_window(&label);
+    let window = handle.app_handle().get_window(&label);
     // if let Some(win)=window{
     //     win.show();
     // }
 
     let Some(win)=window else{
-      
-        let docs_window = tauri::WindowBuilder::new(
+        let _app_window = tauri::WindowBuilder::new(
             &handle,
             &label, /* the unique window label */
             tauri::WindowUrl::External(
@@ -72,22 +65,14 @@ pub async fn greet(
         .initialization_script(&script)
         .title(title)
         .icon(icon)
-        
         .unwrap()
         .build()
-        
         .unwrap();
-         
-       
-        return    Ok(script)
+        return    Ok(())
     };
- 
-   let s =  win.maximize();
- 
-   println!("{:#?}",s);
-    return Ok(script)
- 
+    let _s = win.maximize();
 
+    Ok(())
 }
 
 async fn load_icon_by_asset_resolver(
@@ -140,7 +125,7 @@ async fn load_icon_by_url(url: String) -> Result<Icon, CustomeErrors> {
         height: icon_height,
     })
 }
-fn load_icon(path: &Path) -> Result<Icon, CustomeErrors> {
+fn _load_icon(path: &Path) -> Result<Icon, CustomeErrors> {
     let (icon_rgba, icon_width, icon_height) = {
         let imagebuffer = image::open(path)
             .expect("Failed to open icon path")
@@ -177,7 +162,7 @@ async fn load_script_by_asset_resolver(
     //    println!("{:#?}",s);
     Ok(script)
 }
-fn load_script(path: &Path) -> Result<String, CustomeErrors> {
+fn _load_script(path: &Path) -> Result<String, CustomeErrors> {
     let mut contents = String::new();
     let mut file =
         File::open(path).map_err(|_| CustomeErrors::CustomError("js脚本加载失败!".to_string()))?;

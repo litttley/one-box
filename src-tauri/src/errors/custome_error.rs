@@ -1,4 +1,3 @@
-use image::ImageError;
 use serde::{Deserialize, Serialize};
 
 use thiserror::Error;

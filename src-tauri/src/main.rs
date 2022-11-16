@@ -5,11 +5,11 @@
 
 pub mod command;
 pub mod errors;
-pub mod modal;
+pub mod modals;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![command::cmd::greet,])
+        .invoke_handler(tauri::generate_handler![command::cmd::open_app,])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

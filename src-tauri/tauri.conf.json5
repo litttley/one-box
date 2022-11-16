@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "one-box",
+    "productName": "One Box",
     "version": "0.1.0"
   },
   "tauri": {
