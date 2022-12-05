@@ -1,18 +1,26 @@
 use std::{fs::File, io::Read, path::Path};
 
+ 
 use image::ImageFormat;
 use tauri::{AppHandle, Icon, Manager};
 use url::Url;
 
 use crate::{errors::custome_error::CustomeErrors, modals::modal::AppConfig};
+#[tauri::command]
+pub async fn app_test(
+    msg: String,
+    handle: tauri::AppHandle,
+) -> Result<String, CustomeErrors> {
+    Ok(msg)
 
+}
 //"https://www.kelongwo.com/Resource_function/pan/baidu/".parse().unwrap()
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 pub async fn open_app(
     app_config: AppConfig,
     handle: tauri::AppHandle,
-) -> Result<(), CustomeErrors> {
+) -> Result<String, CustomeErrors> {
     let AppConfig {
         url,
         label,
@@ -26,36 +34,38 @@ pub async fn open_app(
     #[cfg(debug_assertions)]
     let script = load_script_by_url(format!("{}/assets/app-js/{}.js", base_path, label)).await?;
     //tauri build 使用asset_resolver
-    #[cfg(not(debug_assertions))]
-    let icon =
-        load_icon_by_asset_resolver(format!("/assets/app-icon/{}.png", label), &handle).await?;
-    #[cfg(not(debug_assertions))]
-    let script =
-        load_script_by_asset_resolver(format!("/assets/app-js/{}.js", label), &handle).await?;
-
+    // #[cfg(not(debug_assertions))]
+    // let icon =
+    //     load_icon_by_asset_resolver(format!("/assets/app-icon/{}.png", label), &handle).await?;
+    // #[cfg(not(debug_assertions))]
+    // let script =
+    //     load_script_by_asset_resolver(format!("/assets/app-js/{}.js", label), &handle).await?;
+    
     //使用resolve_resource的读取资源
-    // let icon_path = handle
-    //     .path_resolver()
-    //     .resolve_resource(format!("assets/icons/{}.png", label))
-    //     .unwrap();
+    #[cfg(not(debug_assertions))]
+    let Some(icon_path) = handle
+        .path_resolver()
+        .resolve_resource(format!("assets/icons/{}.png", label)) else{
+            return Err(CustomeErrors::CustomError("icon资源加载失败！".to_string()));
+        };
+    #[cfg(not(debug_assertions))]
+    let Some(script_path) = handle
+        .path_resolver()
+        .resolve_resource(format!("assets/js/{}.js", label))else{
+            return Err(CustomeErrors::CustomError("js 加载失败！".to_string()));
+        };
 
-    // let script_path = handle
-    //     .path_resolver()
-    //     .resolve_resource(format!("assets/js/{}.js", label))
-    //     .unwrap();
-
-    //    let s =  handle.asset_resolver().get("/index.html".to_string()).unwrap().mime_type;
-    //    println!("{:#?}",s);
-
-    // let icon = load_icon(icon_path.as_path())?;
-    // let script = load_script(script_path.as_path())?;
+    #[cfg(not(debug_assertions))]
+    let icon = load_icon(icon_path.as_path())?;
+    #[cfg(not(debug_assertions))]
+    let script = load_script(script_path.as_path())?;
     let window = handle.app_handle().get_window(&label);
     // if let Some(win)=window{
     //     win.show();
     // }
 
     let Some(win)=window else{
-        let _app_window = tauri::WindowBuilder::new(
+        let app_window = tauri::WindowBuilder::new(
             &handle,
             &label, /* the unique window label */
             tauri::WindowUrl::External(
@@ -63,16 +73,19 @@ pub async fn open_app(
             ),
         )
         .initialization_script(&script)
+       
         .title(title)
         .icon(icon)
+        
         .unwrap()
         .build()
         .unwrap();
-        return    Ok(())
+        
+        return    Ok(script)
     };
     let _s = win.maximize();
 
-    Ok(())
+    Ok(script)
 }
 
 async fn load_icon_by_asset_resolver(
@@ -125,7 +138,7 @@ async fn load_icon_by_url(url: String) -> Result<Icon, CustomeErrors> {
         height: icon_height,
     })
 }
-fn _load_icon(path: &Path) -> Result<Icon, CustomeErrors> {
+fn load_icon(path: &Path) -> Result<Icon, CustomeErrors> {
     let (icon_rgba, icon_width, icon_height) = {
         let imagebuffer = image::open(path)
             .expect("Failed to open icon path")
@@ -162,7 +175,7 @@ async fn load_script_by_asset_resolver(
     //    println!("{:#?}",s);
     Ok(script)
 }
-fn _load_script(path: &Path) -> Result<String, CustomeErrors> {
+fn load_script(path: &Path) -> Result<String, CustomeErrors> {
     let mut contents = String::new();
     let mut file =
         File::open(path).map_err(|_| CustomeErrors::CustomError("js脚本加载失败!".to_string()))?;
