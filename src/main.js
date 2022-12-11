@@ -46,4 +46,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document
     .querySelector("#compiler-explorer")
     .addEventListener("click", () => openApp("https://godbolt.org/","compiler-explorer","compiler-explorer"));
+
+    document
+    .querySelector("#chatGPT")
+    .addEventListener("click", () => openApp("https://gpt.chatapi.art/","chatGPT","chatGPT"));
 });
