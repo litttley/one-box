@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     document
     .querySelector("#zlibary-one")
-    .addEventListener("click", () => openApp("https://node1.v4.zhelper.net/","zlibary","zlibary"))
+    .addEventListener("click", () => openApp("https://tool.yibook.org/","zlibary","zlibary"))
     //  .addEventListener("click", () => openApp("https://libgen.ee/","zlibary","zlibary"))
     //  .addEventListener("click", () => openApp("https://node1.v5.zhelper.net/","zlibary","zlibary"))
 
