@@ -50,4 +50,8 @@ window.addEventListener("DOMContentLoaded", () => {
     document
     .querySelector("#chatGPT")
     .addEventListener("click", () => openApp("https://gpt.chatapi.art/","chatGPT","chatGPT"));
+
+    document
+    .querySelector("#shuoWen")
+    .addEventListener("click", () => openApp("http://shuowen.chaziwang.com/","chatGPT","chatGPT"));
 });
