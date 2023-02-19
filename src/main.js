@@ -54,4 +54,9 @@ window.addEventListener("DOMContentLoaded", () => {
     document
     .querySelector("#shuoWen")
     .addEventListener("click", () => openApp("http://shuowen.chaziwang.com/","chatGPT","chatGPT"));
+
+    document
+    .querySelector("#tldraw")
+    .addEventListener("click", () => openApp("https://beta.tldraw.com/","tldraw","tldraw"));
+
 });
