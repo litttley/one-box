@@ -59,4 +59,8 @@ window.addEventListener("DOMContentLoaded", () => {
     .querySelector("#tldraw")
     .addEventListener("click", () => openApp("https://beta.tldraw.com/","tldraw","tldraw"));
 
+    document
+    .querySelector("#baimiaoapp")
+    .addEventListener("click", () => openApp("https://web.baimiaoapp.com/","baimiaoapp","baimiaoapp"));
+
 });
