@@ -63,4 +63,14 @@ window.addEventListener("DOMContentLoaded", () => {
     .querySelector("#baimiaoapp")
     .addEventListener("click", () => openApp("https://web.baimiaoapp.com/","baimiaoapp","baimiaoapp"));
 
+    document
+    .querySelector("#fantizi")
+    .addEventListener("click", () => openApp(" https://www.diyifanwen.com/tool/fantizi/","fantizi","fantizi"));
+
+    document
+    .querySelector("#excalidraw")
+    .addEventListener("click", () => openApp("https://excalidraw.com/","excalidraw","excalidraw"));
+
+   
+
 });
